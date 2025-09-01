@@ -42,7 +42,16 @@ This project is a learning environment for implementing pub/sub patterns using D
   ```bash
   bun run start:container
   ```
-4. Run the app:
+
+4. generate prisma:
+  ```bash
+  bun run prisma:generate
+
+5. push prisma bd:
+  ```bash
+  bun run prisma:push
+
+6. Run the app:
   ```bash
   bun run start:dev
   ```
