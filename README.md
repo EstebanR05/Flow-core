@@ -1,60 +1,59 @@
 
+
 # Flow-core
 
-Este proyecto es un entorno de aprendizaje para implementar pub/sub utilizando contenedores Docker, Nginx, WebSocket y Server-Sent Events (SSE).
+This project is a learning environment for implementing pub/sub patterns using Docker containers, Nginx, WebSocket, and Server-Sent Events (SSE).
 
-## ¿Qué aprenderás aquí?
+## Technologies & Versions
 
-- Cómo levantar servicios con Docker (MySQL, Redis, etc.)
-- Cómo usar Nginx como proxy para aplicaciones en tiempo real
-- Implementar comunicación en tiempo real con WebSocket y SSE
-- Usar Redis para pub/sub entre servicios
+- **NestJS**: ^11.0.1
+- **Bun**: latest
+- **Docker Compose**: 3.8
+- **MySQL**: latest (container)
+- **Redis**: latest (container)
+- **Nginx**: (add your version if used)
+- **Prisma**: ^6.14.0
 
-## ¿Cómo correr el proyecto?
+## What will you learn?
 
-1. Instala las dependencias:
+- How to run services with Docker (MySQL, Redis, etc.)
+- How to use Nginx as a proxy for real-time applications
+- How to implement real-time communication with WebSocket and SSE
+- How to use Redis for pub/sub between services
+
+## How to run the project
+
+1. Install dependencies:
   ```bash
   bun i
   ```
-2. Copia y configura tu archivo de entorno:
+2. Copy and configure your environment file:
   ```bash
   cp .env.example .env
-  # Edita los valores según tu entorno
+  # Edit the values as needed
   ```
-3. Inicializa los contenedores:
+  Example:
+  ```env
+  DATABASE_URL="mysql://root:12345@localhost:5060/prueba"
+  REDIS_URL="redis://localhost:6379"
+  PORT=5300
+  ```
+3. Start the containers:
   ```bash
   bun run start:container
   ```
-4. Corre la app:
+4. Run the app:
   ```bash
   bun run start:dev
   ```
 
-## Pruebas
+## Testing
 
 ```bash
-bun run test       # unitarias
-bun run test:e2e   # end-to-end
-bun run test:cov   # cobertura
+bun run test       # unit tests
+bun run test:e2e   # end-to-end tests
+bun run test:cov   # coverage
 ```
 
 ---
-Este proyecto es solo para fines educativos y experimentales.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is for educational and experimental purposes only.
