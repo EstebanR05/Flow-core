@@ -1,8 +1,9 @@
-import { Body, ConflictException, Controller, NotFoundException, Post, Put, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { ConflictException, Controller, NotFoundException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import type { ITUserChangePassword, ITUserLogin, ITUserRegister } from './types/user-dto';
 import { JwtAuthGuard } from 'src/common/guards/jwt.guard';
+import { TypedBody, TypedRoute } from '@nestia/core';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -10,34 +11,31 @@ export class AuthController {
 
     constructor(private readonly authService: AuthService) { }
 
-    @Post('login')
+    @TypedRoute.Post('login')
     @UseGuards(JwtAuthGuard)
     async login(
-        @Body() userLogin: ITUserLogin,
+        @TypedBody() userLogin: ITUserLogin,
     ) {
-        const user = await this.authService.validatedUser(userLogin.email, userLogin.password);
-        if (!user) {
-            throw new UnauthorizedException();
-        }
-        return user;
+        return await this.authService.validateUser(userLogin);
     }
 
-    @Post('register')
+    @TypedRoute.Post('register')
     async register(
-        @Body() userRegister: ITUserRegister
+        @TypedBody() userRegister: ITUserRegister
     ) {
-        const user = await this.authService.registerUser(userRegister.name, userRegister.email, userRegister.password);
+        const user = await this.authService.registerUser(userRegister);
         if (!user) {
             throw new ConflictException();
         }
         return user;
     }
 
-    @Put('change-password')
+    @TypedRoute.Put('change-password')
+    @UseGuards(JwtAuthGuard)
     async changePassword(
-        @Body() userChangePassword: ITUserChangePassword
+        @TypedBody() userChangePassword: ITUserChangePassword
     ) {
-        const user = await this.authService.changePassword(userChangePassword.email, userChangePassword.newPassword);
+        const user = await this.authService.changePassword(userChangePassword);
         if (!user) {
             throw new NotFoundException();
         }
