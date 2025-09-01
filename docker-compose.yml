@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  mysql-server:
+    image: mysql:latest
+    container_name: mysql-server
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+    ports:
+      - "5060:3306"
+    volumes:
+      - mysql-server-data:/var/lib/mysql
+    restart: unless-stopped
+
+  phpmyadmin-server:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-server
+    environment:
+      PMA_HOST: mysql-server
+      PMA_PORT: 3306
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql-server
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+volumes:
+  mysql-server-data:
+  redis-data:

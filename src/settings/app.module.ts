@@ -13,8 +13,9 @@ import { GUserModule } from 'src/user-service/settings/app.module';
       isGlobal: true,
       useFactory: async () => ({
         store: await redisStore({
-          host: 'localhost',
-          port: 6379,
+          // host: 'localhost',
+          // port: 6379,
+          url: process.env.REDIS_URL,
           ttl: 60, 
         }),
       }),

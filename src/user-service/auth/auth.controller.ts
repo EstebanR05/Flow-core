@@ -1,7 +1,8 @@
-import { Body, ConflictException, Controller, NotFoundException, Post, Put, UnauthorizedException } from '@nestjs/common';
+import { Body, ConflictException, Controller, NotFoundException, Post, Put, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import type { ITUserChangePassword, ITUserLogin, ITUserRegister } from './types/user-dto';
+import { JwtAuthGuard } from 'src/common/guards/jwt.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -10,6 +11,7 @@ export class AuthController {
     constructor(private readonly authService: AuthService) { }
 
     @Post('login')
+    @UseGuards(JwtAuthGuard)
     async login(
         @Body() userLogin: ITUserLogin,
     ) {
